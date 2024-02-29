@@ -15,7 +15,7 @@ bot = telebot.TeleBot(TOKEN)
 # Function to capture screenshot
 def capture_screenshot():
     # Use appropriate method to capture screenshot in Android
-    screenshot = pyautogui.screenshot(region=(610, 100, 510, 900))  # Assuming you are running this script on a Windows machine
+    screenshot = pyautogui.screenshot(region=(620, 100, 540, 900))  # Assuming you are running this script on a Windows machine
     return screenshot
 
 # Function to send screenshot to Telegram channel
