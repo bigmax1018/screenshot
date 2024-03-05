@@ -5,10 +5,10 @@ import time
 import io
 
 # Telegram Bot Token
-TOKEN = '7042651707:AAFeKArSV9cufcmZD0ZXygha_9g6ZV6pV84'
+TOKEN = '7048655094:AAFv-GZRC8JwRTIq_Exhqa5DdedfmF2xQEc'
 
 # Channel ID where you want to send screenshots
-CHANNEL_ID = '@forwardtestert'
+CHANNEL_ID = '@my_user_test'
 # Initialize the bot
 bot = telebot.TeleBot(TOKEN)
 

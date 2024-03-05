@@ -1,5 +1,5 @@
 from telegram import Update
-from telegram.ext import Application, CallbackContext, CommandHandler, MessageHandler, ChatJoinRequestHandler, ChatMemberHandler, filters
+from telegram.ext import Application, CallbackContext, CommandHandler, ContextTypes, MessageHandler, ChatJoinRequestHandler, ChatMemberHandler, filters
 import logging
 import asyncio
 asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
@@ -15,7 +15,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 # Your bot token
-TOKEN = '7084909006:AAH4GzuOkuNVDcVroXt-4pm6gXAoVLJU7Qc'
+TOKEN = '7039684234:AAGPI_DnYMCZpePpAV16UHPMbUOGuDlG5O0'
 bot = telebot.TeleBot(TOKEN)
 
 # Dictionary to store kicked users and their respective channels
@@ -27,9 +27,9 @@ with open("channel_list.txt", "r") as file:
         channel_list = file.readlines()
 print(channel_list)
 # Function to kick user from specified channels
-def handle_special_channel_kick(update: Update, context: CallbackContext) -> None:
+async def handle_special_channel_kick(update: Update, context: CallbackContext) -> None:
     # Check if the kick happened in the special channel
-    bot.send_message('@my_test_group_kk', 'nice')
+    await update.message.reply_text("Kick!")
     if update.effective_chat.id in channel_list:
         kicked_user_id = update.effective_user.id
         print(kicked_user_id + 'kicked')
@@ -41,9 +41,9 @@ def handle_special_channel_kick(update: Update, context: CallbackContext) -> Non
             file.write(str(kicked_user_id) + "\n")
 
 # Function to reject user when kicked someone rejoin
-def reject_rejoined_users(update: Update, context: CallbackContext) -> None:
-    bot.send_message('@my_test_screenshot', 'nice')
+async def reject_rejoined_users(update: Update, context: CallbackContext) -> None:
     rejoined_user_id = update.effective_user.id
+    await update.message.reply_text("Request Join!" + rejoined_user_id)
     # Check if the rejoined user is in the kick member list
     with open("kick_member_list.txt", "r") as file:
         kick_members = file.readlines()
@@ -53,13 +53,19 @@ def reject_rejoined_users(update: Update, context: CallbackContext) -> None:
 async def error(update: Update, context: CallbackContext):
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 
+async def nice(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    with open('screenshot.png', 'rb') as photo:
+        await update.message.reply_photo(photo)
+
 def main():
-    application = Application.builder().token("7084909006:AAH4GzuOkuNVDcVroXt-4pm6gXAoVLJU7Qc").build()
+    application = Application.builder().token("7039684234:AAGPI_DnYMCZpePpAV16UHPMbUOGuDlG5O0").build()
     
     application.add_handler(ChatMemberHandler(handle_special_channel_kick, ChatMemberHandler.MY_CHAT_MEMBER))
     application.add_handler(ChatJoinRequestHandler(reject_rejoined_users))
-    # application.add_handler(CommandHandler('nice', bot.send_message('@my_test_screenshot', 'nice')))
-    application.run_polling()
+    application.add_handler(CommandHandler('nice', nice))
+    # application.run_polling()
+    while True:
+         a = "aaa"
 
 if __name__ == '__main__':
     main()
